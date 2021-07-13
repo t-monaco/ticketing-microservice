@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import {
+    BadRequestError,
     NotAuthorizedError,
     NotFoundError,
     requireAuth,
@@ -27,6 +28,10 @@ router.put(
 
         if (!ticket) {
             throw new NotFoundError();
+        }
+
+        if(ticket.orderId) {
+            throw new BadRequestError('Ticket already reserved')
         }
 
         if (ticket.userId !== req.currentUser!.id) {

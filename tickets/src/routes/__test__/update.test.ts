@@ -68,8 +68,8 @@ it('return a 400 if the user provides an invalid title or price', async () => {
 
 it('update ticket if all inputs are valid ', async () => {
     const cookie = global.signup();
-    const title = 'New test title'
-    const price = 200
+    const title = 'New test title';
+    const price = 200;
 
     const response = await request(app)
         .post('/api/tickets')
@@ -90,8 +90,8 @@ it('update ticket if all inputs are valid ', async () => {
         .get(`/api/tickets/${response.body.id}`)
         .send();
 
-    expect(ticketResponse.body.title).toEqual(title)
-    expect(ticketResponse.body.price).toEqual(price)
+    expect(ticketResponse.body.title).toEqual(title);
+    expect(ticketResponse.body.price).toEqual(price);
 });
 
 it('publish an event', async () => {
@@ -115,4 +115,31 @@ it('publish an event', async () => {
         .expect(200);
 
     expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+it('rejects update if ticket is reserved', async () => {
+    const cookie = global.signup();
+    const title = 'New test title';
+    const price = 200;
+
+    const response = await request(app)
+        .post('/api/tickets')
+        .set('Cookie', cookie)
+        .send({ title: 'Test title', price: 100 })
+        .expect(201);
+
+    const ticket = await Ticket.findById(response.body.id);
+
+    ticket!.set('orderId', mongoose.Types.ObjectId().toHexString());
+
+    await ticket!.save();
+
+    await request(app)
+        .put(`/api/tickets/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({
+            title,
+            price,
+        })
+        .expect(400);
 });
