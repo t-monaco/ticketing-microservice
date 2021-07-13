@@ -1,5 +1,5 @@
-import request from 'supertest';
 import mongoose from 'mongoose';
+import request from 'supertest';
 import { app } from '../../app';
 import { natsWrapper } from '../../nats-wrapper';
 import { Order, OrderStatus } from '../../models/orders';
@@ -17,6 +17,7 @@ it('returns error if the ticket does not exist', async () => {
 
 it('returns error if the ticket is already reserved', async () => {
     const ticket = Ticket.build({
+        id: mongoose.Types.ObjectId().toHexString(),
         title: 'Test title',
         price: 100,
     });
@@ -39,6 +40,7 @@ it('returns error if the ticket is already reserved', async () => {
 
 it('reserves the ticket', async () => {
     const ticket = Ticket.build({
+        id: mongoose.Types.ObjectId().toHexString(),
         title: 'Test Ticket',
         price: 100,
     });
@@ -51,4 +53,19 @@ it('reserves the ticket', async () => {
         .expect(201);
 });
 
-it.todo('emits an event after creating an order')
+it('emits an event after creating an order', async () => {
+    const ticket = Ticket.build({
+        id: mongoose.Types.ObjectId().toHexString(),
+        title: 'Test Ticket',
+        price: 100,
+    });
+    await ticket.save();
+
+    await request(app)
+        .post('/api/orders')
+        .set('Cookie', global.signup())
+        .send({ ticketId: ticket.id })
+        .expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

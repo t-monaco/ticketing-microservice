@@ -1,10 +1,11 @@
+import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
-import { natsWrapper } from '../../nats-wrapper';
 import { Ticket } from '../../models/ticket';
 
 it('fetches the order', async () => {
     const ticket = Ticket.build({
+        id: mongoose.Types.ObjectId().toHexString(),
         title: 'Test Ticket',
         price: 100,
     });
@@ -29,6 +30,7 @@ it('fetches the order', async () => {
 
 it('return error if a user request an order that do not own', async () => {
     const ticket = Ticket.build({
+        id: mongoose.Types.ObjectId().toHexString(),
         title: 'Test Ticket',
         price: 100,
     });
@@ -47,5 +49,4 @@ it('return error if a user request an order that do not own', async () => {
         .set('Cookie', global.signup())
         .send()
         .expect(401);
-
 });
