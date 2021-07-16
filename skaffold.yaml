@@ -24,6 +24,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: tmonaco/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: tmonaco/expiration
       context: expiration
       docker:
