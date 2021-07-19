@@ -20,7 +20,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompletedEve
             throw new NotFoundError();
         }
 
-        if(order.status === OrderStatus.Complete){
+        if(order.status === OrderStatus.Completed){
             return msg.ack()
         }
 
