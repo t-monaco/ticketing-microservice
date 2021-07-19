@@ -4,7 +4,7 @@ import { ExpirationCompletedEvent, OrderStatus } from '@tm-ticketing/common';
 import { natsWrapper } from '../../../nats-wrapper';
 import { ExpirationCompletedListener } from '../expiration-completed-listener';
 import { Ticket } from '../../../models/ticket';
-import { Order } from '../../../models/orders';
+import { Order } from '../../../models/order';
 
 const setup = async () => {
     // Create instance of listener

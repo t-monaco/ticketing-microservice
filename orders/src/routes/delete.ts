@@ -4,7 +4,7 @@ import {
     NotFoundError,
 } from '@tm-ticketing/common';
 import express, { Request, Response } from 'express';
-import { Order, OrderStatus } from '../models/orders';
+import { Order, OrderStatus } from '../models/order';
 import { natsWrapper } from './../nats-wrapper';
 import { OrderCancelledPublisher } from './../events/publishers/order-cancelled-publisher';
 

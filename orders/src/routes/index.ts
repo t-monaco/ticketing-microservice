@@ -1,6 +1,6 @@
 import { requireAuth } from '@tm-ticketing/common';
 import express, { Request, Response } from 'express';
-import { Order } from '../models/orders';
+import { Order } from '../models/order';
 
 const router = express.Router();
 

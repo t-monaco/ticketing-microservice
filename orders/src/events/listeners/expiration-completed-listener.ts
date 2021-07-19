@@ -7,7 +7,7 @@ import {
     Subjects,
 } from '@tm-ticketing/common';
 import { queueGroupName } from './queue-group-name';
-import { Order } from '../../models/orders';
+import { Order } from '../../models/order';
 import { OrderCancelledPublisher } from '../publishers/order-cancelled-publisher';
 
 export class ExpirationCompletedListener extends Listener<ExpirationCompletedEvent> {

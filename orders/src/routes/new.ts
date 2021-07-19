@@ -8,7 +8,7 @@ import {
 } from '@tm-ticketing/common';
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
-import { Order, OrderStatus } from '../models/orders';
+import { Order, OrderStatus } from '../models/order';
 import { natsWrapper } from './../nats-wrapper';
 import { OrderCreatedPublisher } from './../events/publishers/order-created-publisher';
 

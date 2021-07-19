@@ -5,7 +5,7 @@ import { TicketDoc } from './ticket';
 
 export { OrderStatus };
 
-interface OrderAtts {
+interface OrderAttrs {
     userId: string;
     status: OrderStatus;
     expiresAt: Date;
@@ -21,7 +21,7 @@ interface OrderDoc extends mongoose.Document {
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
-    build(attrs: OrderAtts): OrderDoc;
+    build(attrs: OrderAttrs): OrderDoc;
 }
 
 const OrderSchema = new mongoose.Schema(
@@ -57,7 +57,7 @@ const OrderSchema = new mongoose.Schema(
 
 OrderSchema.plugin(updateIfCurrentPlugin);
 
-OrderSchema.statics.build = (attrs: OrderAtts) => {
+OrderSchema.statics.build = (attrs: OrderAttrs) => {
     return new Order(attrs);
 };
 
