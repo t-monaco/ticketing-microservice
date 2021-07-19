@@ -6,9 +6,9 @@ import {
 } from '@tm-ticketing/common';
 import { Message } from 'node-nats-streaming';
 import { queueGroupName } from './queue-group-name';
-import { TicketUpdatedPublisher } from './../publishers/ticket-updated-publisher';
+import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
 import { Ticket } from '../../models/ticket';
-import { natsWrapper } from './../../nats-wrapper';
+import { natsWrapper } from '../../nats-wrapper';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     subject: Subjects.OrderCreated = Subjects.OrderCreated;
