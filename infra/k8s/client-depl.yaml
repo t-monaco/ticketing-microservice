@@ -15,6 +15,12 @@ spec:
       containers:
         - name: client
           image: tmonaco/client
+          env:
+          - name: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+            valueFrom:
+              secretKeyRef:
+                name: stripe-public-secret
+                key: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
 ---
 apiVersion: v1
 kind: Service
