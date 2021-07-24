@@ -63,7 +63,7 @@ it('returns a 400, when purchasing a cancelled order', async () => {
         .expect(400);
 });
 
-it('returns a 201 with valid inputs', async () => {
+it('LOCAL-RUN - returns a 201 with valid inputs', async () => {
     const userId = mongoose.Types.ObjectId().toHexString();
     const price = Math.floor(Math.random() * 100000);
 
